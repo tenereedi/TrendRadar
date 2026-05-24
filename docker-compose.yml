@@ -8,7 +8,7 @@ services:
     container_name: trendradar
     restart: unless-stopped
     environment:
-      - TZ=Europe/London
+      - TZ=America/New_York
       - PYTHONUNBUFFERED=1
     env_file:
       - .env
@@ -27,6 +27,7 @@ services:
     container_name: trendradar-redis
     restart: unless-stopped
     # Exposing Redis port for local dev inspection (e.g. with redis-cli or TablePlus)
+    # Note: remove this port binding before deploying to any shared/prod environment
     ports:
       - "6379:6379"
     volumes:
