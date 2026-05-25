@@ -8,7 +8,7 @@ services:
     container_name: trendradar
     restart: unless-stopped
     environment:
-      - TZ=America/New_York
+      - TZ=Europe/London
       - PYTHONUNBUFFERED=1
     env_file:
       - .env
@@ -36,6 +36,11 @@ services:
       - trendradar-net
     profiles:
       - with-cache
+    # Added memory limit to prevent Redis from eating too much RAM on my laptop
+    deploy:
+      resources:
+        limits:
+          memory: 128m
 
 volumes:
   redis-data:
