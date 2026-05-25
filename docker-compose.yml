@@ -8,7 +8,7 @@ services:
     container_name: trendradar
     restart: unless-stopped
     environment:
-      - TZ=America/New_York
+      - TZ=America/Chicago
       - PYTHONUNBUFFERED=1
     env_file:
       - .env
@@ -36,11 +36,12 @@ services:
       - trendradar-net
     profiles:
       - with-cache
-    # Added memory limit to prevent Redis from eating too much RAM on my laptop
+    # Bumped memory limit slightly — 128m was causing occasional OOM evictions during
+    # longer scraping runs on my machine
     deploy:
       resources:
         limits:
-          memory: 128m
+          memory: 256m
 
 volumes:
   redis-data:
